@@ -81,51 +81,175 @@ your-project/
 
 ## Task Specification
 
-Tasks are defined in `tasks.md` with YAML frontmatter:
+Each task is a **full specification document** in `tasks.md`. The `meta.json` file is the **authoritative source** for dependencies, estimates, and priorities.
 
-```yaml
+### tasks.md (full specification)
+
+```markdown
+# Monorepo Initialization
+
+**Task ID:** T00-001
+**Phase:** P00 - Foundation & Setup
+**Requirements:** FR-MONO-001
+**Total Estimate:** 4 hours
+**Priority:** P0 (Critical)
+**Dependencies:** None
+**Blocks:** All other P00 tasks
+**Status:** Not Started
+
 ---
-name: Bootstrap Project
-description: Set up project structure and configuration
-status: pending
-parallel_group: 1
-files:
-  - package.json
-  - src/main.ts
-acceptance_criteria:
-  - Project builds successfully
-  - All tests pass
+
+## Overview
+
+This task establishes the foundational monorepo infrastructure using Turborepo
+and pnpm workspaces. It creates the project structure, build system, and
+caching configuration that all subsequent development will depend on.
+
 ---
 
-# Implementation Details
+## Technical Specification
 
-Detailed instructions for the AI agent...
+### Monorepo Structure
+
+\`\`\`
+project/
+├── apps/
+│   ├── api/
+│   ├── client/
+│   └── web/
+├── packages/
+│   ├── database/
+│   ├── auth/
+│   └── shared/
+├── package.json
+├── pnpm-workspace.yaml
+├── turbo.json
+└── tsconfig.json
+\`\`\`
+
+---
+
+## Implementation Steps
+
+### T00-001.1: Initialize Project Structure
+
+**Estimate:** 1 hour
+**Dependencies:** None
+**Skill:** \`monorepo-setup\`
+
+**Read Before Implementing:**
+- Turborepo documentation: https://turbo.build/repo/docs
+- pnpm workspaces: https://pnpm.io/workspaces
+
+**Files to Create:**
+- \`package.json\` - Root package.json with workspace config
+- \`pnpm-workspace.yaml\` - Workspace package patterns
+- \`.gitignore\` - Git ignore rules for monorepo
+
+**Implementation Steps:**
+
+- [ ] **Step 1:** Initialize root package.json
+  - Set name, private: true, packageManager: "pnpm@9.0.0"
+  - Add workspace scripts (dev, build, lint, type-check)
+
+- [ ] **Step 2:** Create pnpm-workspace.yaml
+  - Add apps/* and packages/* patterns
+
+- [ ] **Step 3:** Create directory structure
+  - Create apps/, packages/ directories
+
+**Acceptance Criteria:**
+
+- [ ] Root package.json exists with correct structure
+- [ ] pnpm-workspace.yaml configured
+- [ ] All directories created
+
+**Testing:**
+
+- [ ] \`pnpm install\` runs without errors
+- [ ] Directory structure matches specification
+
+**Checkpoint:** Project structure exists, pnpm workspace recognized
+
+---
+
+### T00-001.2: Configure Turborepo
+
+**Estimate:** 1 hour
+**Dependencies:** T00-001.1
+**Skill:** \`monorepo-setup\`
+
+**Files to Create:**
+- \`turbo.json\` - Turborepo configuration
+
+**Implementation Steps:**
+
+- [ ] **Step 1:** Install Turborepo as devDependency
+- [ ] **Step 2:** Create turbo.json with build/dev/lint pipelines
+- [ ] **Step 3:** Configure caching (local + remote)
+
+**Acceptance Criteria:**
+
+- [ ] turbo.json exists with correct pipeline config
+- [ ] Build pipeline has dependsOn: ["^build"]
+- [ ] Dev pipeline has cache: false
+
+**Testing:**
+
+- [ ] \`pnpm turbo build\` runs successfully
+- [ ] Cache directory created (.turbo/)
+
+---
+
+## Definition of Done
+
+- [ ] All implementation steps completed
+- [ ] All acceptance criteria verified
+- [ ] Monorepo structure matches specification
+- [ ] Turborepo configured with caching
+- [ ] TypeScript strict mode enabled
+- [ ] No errors when running \`pnpm install\`
+- [ ] \`pnpm turbo build\` succeeds
+- [ ] Code reviewed and approved
 ```
 
-Task metadata (dependencies, estimates, priorities) comes from `meta.json`:
+### meta.json (authoritative metadata)
 
 ```json
 {
   "phase": "P00-foundation-setup",
   "phaseName": "Foundation & Setup",
+  "phaseNumber": 0,
   "tasks": [
     {
       "id": "T00-001",
-      "name": "Bootstrap Project",
+      "name": "monorepo-initialization",
+      "title": "Monorepo Initialization",
       "estimate": 4,
       "priority": "P0",
+      "status": "not_started",
       "dependencies": [],
-      "status": "not_started"
+      "subtasks": { "total": 4, "completed": 0 }
     },
     {
       "id": "T00-002",
-      "name": "API Shell",
-      "estimate": 6,
-      "priority": "P1",
+      "name": "api-application-shell",
+      "title": "API Application Shell",
+      "estimate": 4,
+      "priority": "P0",
+      "status": "not_started",
       "dependencies": ["T00-001"],
-      "status": "not_started"
+      "subtasks": { "total": 4, "completed": 0 }
     }
-  ]
+  ],
+  "stats": {
+    "totalTasks": 2,
+    "completedTasks": 0,
+    "totalEstimate": 8,
+    "progressPercent": 0
+  },
+  "status": "synced",
+  "version": "1.0"
 }
 ```
 
