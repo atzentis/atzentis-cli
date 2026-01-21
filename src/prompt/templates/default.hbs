@@ -1,0 +1,132 @@
+# Task: {{task.id}} - {{task.name}}
+
+{{#if task.phase}}
+**Phase:** {{task.phase}}
+{{/if}}
+{{#if task.priority}}
+**Priority:** {{task.priority}}
+{{/if}}
+{{#if task.estimate}}
+**Estimate:** {{task.estimate}}
+{{/if}}
+{{#if task.requirements}}
+**Requirements:** {{join task.requirements ", "}}
+{{/if}}
+{{#if task.dependencies}}
+**Dependencies:** {{join task.dependencies ", "}}
+{{/if}}
+
+---
+
+## Overview
+
+{{#if task.description}}
+{{task.description}}
+{{else}}
+Implement the task as specified in the acceptance criteria below.
+{{/if}}
+
+---
+
+## Files to Create/Modify
+
+{{#if task.files}}
+{{#each task.files}}
+- `{{this}}`
+{{/each}}
+{{else}}
+_Determine appropriate files based on task requirements._
+{{/if}}
+
+---
+
+## Acceptance Criteria
+
+{{#if task.acceptanceCriteria}}
+{{#each task.acceptanceCriteria}}
+- [ ] {{this}}
+{{/each}}
+{{else}}
+_No specific acceptance criteria provided._
+{{/if}}
+
+---
+
+{{#if task.businessRules}}
+## Business Rules
+
+{{#each task.businessRules}}
+- {{this}}
+{{/each}}
+
+---
+
+{{/if}}
+{{#if task.testingRequirements}}
+## Testing Requirements
+
+Write these tests during implementation:
+
+{{#each task.testingRequirements}}
+- [ ] {{this}}
+{{/each}}
+
+---
+
+{{/if}}
+{{#if task.skills}}
+## Skills Reference
+
+Read these skill files before implementing:
+
+{{#each task.skills}}
+- `.claude/skills/*/{{this}}/SKILL.md`
+{{/each}}
+
+---
+
+{{/if}}
+{{#if rules}}
+## Project Rules (MUST FOLLOW)
+
+{{#each rules}}
+- {{this}}
+{{/each}}
+
+---
+
+{{/if}}
+{{#if context}}
+## Context
+
+{{context}}
+
+---
+
+{{/if}}
+## Instructions
+
+1. **Read** and understand the task requirements and acceptance criteria
+2. **Plan** your implementation approach before coding
+3. **Implement** according to acceptance criteria and business rules
+4. **Follow** all project rules and existing code conventions
+5. **Test** your changes - write tests as specified in testing requirements
+6. **Verify** all acceptance criteria are met before completing
+
+### Important Guidelines
+
+- Follow existing code patterns in the codebase
+- Write clean, maintainable, well-documented code
+- Add appropriate error handling
+- Do not modify files outside the scope of this task
+- Do not introduce breaking changes unless explicitly required
+
+### Completion
+
+When you have successfully completed ALL acceptance criteria, output:
+
+```
+<promise>COMPLETE</promise>
+```
+
+If you encounter blockers or need clarification, describe the issue clearly and what information you need to proceed.

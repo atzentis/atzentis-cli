@@ -1,0 +1,24 @@
+project: cli
+name: Cli
+language: typescript
+packageManager: bun
+runtime: bun
+taskSource:
+  type: file-based
+  pattern: "**/{tasks,task}.{md,yaml}"
+agent:
+  type: claude-code
+commands:
+  test: bun test
+  build: bun run build
+rules:
+  - Follow existing code patterns and conventions
+  - Write clean, maintainable code
+  - Add appropriate error handling
+  - Include necessary tests
+contextProviders: []
+completionPattern: <promise>COMPLETE</promise>
+parallelStrategy:
+  maxConcurrent: 3
+  taskGroups: true
+  worktreeDir: /tmp/atzentis-cli-worktrees
